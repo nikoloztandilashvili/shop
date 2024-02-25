@@ -13,12 +13,13 @@ public class Application {
 
     public static void main(String[] args) throws LifecycleException {
 
+
         Tomcat tomcat = new Tomcat();
         tomcat.enableNaming();
-        tomcat.setPort(8989);
+        tomcat.setPort(8080);
         tomcat.getConnector();
 
-        String ctxPath = "/candy-shop";
+        String ctxPath = "/shop";
         String webappDir = new File("src/main/webapp").getAbsolutePath();
         StandardContext ctx = (StandardContext) tomcat.addWebapp(ctxPath, webappDir);
 

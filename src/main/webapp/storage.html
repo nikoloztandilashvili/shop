@@ -2,9 +2,53 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Add Product</title>
 </head>
 <body>
+<h2>Add Product</h2>
+<form id="addProductForm">
+	<label for="productName">Product Name:</label>
+	<input type="text" id="productName" name="productName" required><br>
 
+	<label for="productPrice">Product Price:</label>
+	<input type="number" id="productPrice" name="productPrice" required><br>
+
+	<label for="productQuantity">Product Quantity:</label>
+	<input type="number" id="productQuantity" name="productQuantity" required><br>
+
+	<button type="submit">Add Product</button>
+</form>
+
+<script>
+        document.getElementById("addProductForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const productName = document.getElementById("productName").value;
+            const productPrice = parseFloat(document.getElementById("productPrice").value);
+            const productQuantity = parseInt(document.getElementById("productQuantity").value);
+
+            const newProduct = {
+                prod_name: productName,
+                prod_price: productPrice,
+                prod_amount: productQuantity
+            };
+
+            const response = await fetch("/candy-shop/add-product", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newProduct)
+            });
+
+            if (response.ok) {
+                console.log("Product added successfully!");
+                window.location.href = "/candy-shop/storage.html";
+            } else {
+                console.error("Failed to add product:", response.statusText);
+            }
+        });
+    </script>
 </body>
 </html>
